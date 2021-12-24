@@ -27,7 +27,7 @@ export const togglePlugin = (sender: NotifySender) => {
     UIAlertView.showWithTitleMessageStyleCancelButtonTitleOtherButtonTitlesTapBlock(
       gt("toggle_title"),
       "",
-      UIAlertViewStyle.Default,
+      0 /* Default */,
       gt("cancel"),
       [
         (self.tocMode ? gt("off") : gt("on")) + gt("toc"),
