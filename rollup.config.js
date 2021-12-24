@@ -32,7 +32,7 @@ const configs = [
         assets: ["mnaddon.json", ["assets/title.png", "title.png"]],
       }),
       zip({
-        file: "ob-bridge.mnaddon",
+        file: "marginnote-to-org.mnaddon",
       }),
     ],
   },

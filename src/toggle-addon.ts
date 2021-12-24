@@ -2,7 +2,7 @@ import { NotifySender } from "@alx-plugins/marginnote";
 import { isMac, showHUD } from "modules/tools";
 import gt from "modules/translate";
 
-export const pluginName = "obsidian-bridge";
+export const pluginName = "marginnote-to-org";
 
 export const toggleHandlerName = `toggle${pluginName}`;
 
