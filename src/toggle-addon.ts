@@ -22,36 +22,40 @@ export const togglePlugin = (sender: NotifySender) => {
 
   if (!self[addonOnName]) {
     toggleAddon();
-    showHUD(isMac() ? gt("addon") + gt("enabled") : gt("hint_addon_enabled"));
-  } else
-    UIAlertView.showWithTitleMessageStyleCancelButtonTitleOtherButtonTitlesTapBlock(
-      gt("toggle_title"),
-      "",
-      0 /* Default */,
-      gt("cancel"),
-      [
-        (self.tocMode ? gt("off") : gt("on")) + gt("toc"),
-        (self[addonOnName] ? gt("off") : gt("on")) + gt("addon"),
-      ],
-      (alert, buttonIndex) => {
-        switch (buttonIndex) {
-          case 1:
-            self.tocMode = !self.tocMode;
-            if (self.tocMode) showHUD(gt("toggle_desc_toc_on"));
-            break;
-          case 2:
-            toggleAddon();
-            showHUD(gt("addon") + gt("disabled"));
-            break;
-          case 0:
-            break;
-          default:
-            JSB.log(
-              "🌈🌈🌈 MNLOG tapBlock: Unexpected button pressed %o",
-              alert.buttonTitleAtIndex(buttonIndex),
-            );
-            break;
-        }
-      },
-    );
+    self.tocMode = true;
+    showHUD(gt("addon") + gt("enabled"));
+  } else {
+    toggleAddon();
+    showHUD(gt("addon") + gt("disabled"));
+  }
+  // UIAlertView.showWithTitleMessageStyleCancelButtonTitleOtherButtonTitlesTapBlock(
+  //   gt("toggle_title"),
+  //   "",
+  //   0 /* Default */,
+  //   gt("cancel"),
+  //   [
+  //     (self.tocMode ? gt("off") : gt("on")) + gt("toc"),
+  //     (self[addonOnName] ? gt("off") : gt("on")) + gt("addon"),
+  //   ],
+  //   (alert, buttonIndex) => {
+  //     switch (buttonIndex) {
+  //       case 1:
+  //         self.tocMode = !self.tocMode;
+  //         if (self.tocMode) showHUD(gt("toggle_desc_toc_on"));
+  //         break;
+  //       case 2:
+  //         toggleAddon();
+  //         showHUD(gt("addon") + gt("disabled"));
+  //         break;
+  //       case 0:
+  //         break;
+  //       default:
+  //         JSB.log(
+  //           "🌈🌈🌈 MNLOG tapBlock: Unexpected button pressed %o",
+  //           alert.buttonTitleAtIndex(buttonIndex),
+  //         );
+  //         break;
+  //     }
+  //   },
+  // );
 };
