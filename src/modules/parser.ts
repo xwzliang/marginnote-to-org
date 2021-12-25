@@ -117,9 +117,19 @@ export const getBody_Note = (note: MbBookNote): ReturnBody_Note => {
   };
 };
 
+const getRootNote = (note: MbBookNote): MbBookNote => {
+  let returnedNote;
+  if (note.parentNote) {
+    returnedNote = getRootNote(note.parentNote);
+  } else {
+    returnedNote = note;
+  }
+  return returnedNote;
+};
+
 export const getBody_Toc = (note: MbBookNote): ReturnBody_Toc => {
-  // if (note.parentNote) return;
-  const result = scanToc(note);
+  const rootNote = getRootNote(note);
+  const result = scanToc(rootNote);
   const [data, bookMd5s] = result,
     { last, sendTime } = getLastAndSendTime(data),
     bookMap = arrToObj((id) => getBook(id), bookMd5s);
