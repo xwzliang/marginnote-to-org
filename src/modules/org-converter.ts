@@ -1,3 +1,4 @@
+import moment from "moment";
 import {
   Book,
   Data,
@@ -9,6 +10,8 @@ import {
   Selection,
   Toc,
 } from "../return";
+
+const orgTimeFormatForMomentjs = "YYYY-MM-DD ddd HH:mm";
 
 export const convert_to_org = (body: ReturnBody_Toc): string => {
   const { data: toc } = body;
@@ -23,11 +26,16 @@ export const convert_to_org = (body: ReturnBody_Toc): string => {
       // docMd5,
       startPage,
       endPage,
+      createDate,
+      modifiedDate,
     } = toc;
     excerptText = excerptText === undefined ? "" : excerptText;
     if (otherMergedText) {
       excerptText = excerptText + "\n\n" + otherMergedText;
     }
+
+    let createDateOrg = moment(createDate).format(orgTimeFormatForMomentjs);
+    let modifiedDateOrg = moment(modifiedDate).format(orgTimeFormatForMomentjs);
 
     let rendered;
     if (startPage === undefined || noteTitle === undefined) {
@@ -38,9 +46,11 @@ export const convert_to_org = (body: ReturnBody_Toc): string => {
         ` ${noteTitle}
 :PROPERTIES:
 :ID:       ${noteId}
-:MARGINNOTE_LINK: [[marginnote3app://note/${noteId}][link]]
+:CREATED: [${createDateOrg}]
+:MODIFIED: [${modifiedDateOrg}]
 :NOTER_PAGE: ${startPage}
 :NOTER_PAGE_END: ${endPage}
+:MARGINNOTE_LINK: [[marginnote3app://note/${noteId}][link]]
 :END:
 ${excerptText}
 `;

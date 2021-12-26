@@ -64,4 +64,6 @@ export interface Toc {
   notesText?: string;
 
   childNotes: Toc[];
+  createDate: number;
+  modifiedDate: number;
 }

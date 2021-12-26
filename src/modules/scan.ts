@@ -21,6 +21,8 @@ export const scanToc = (note: MbBookNote): [note: Toc, bookMd5s: string[]] => {
         "excerptText",
         "toc",
         "notesText",
+        "createDate",
+        "modifiedDate",
       );
     if (
       requiredKeys.some((k) => {
