@@ -13,7 +13,7 @@ export const SendToc = (src: MbBookNote): void => {
     let str = convert_to_org(getBody_Toc(src));
     // Copy to clipboard
     copy(str);
-    showHUD(getText("hint_toc_success") + src.noteTitle);
+    showHUD(getText("hint_toc_success"));
   } catch (error) {
     showHUD(error);
   }

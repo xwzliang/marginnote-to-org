@@ -5,8 +5,8 @@ const text = {
   //   "tap/click on parent note can now recursively fetch all children notes to generate toc in Obsidian",
   // ],
   hint_toc_success: [
-    "成功转换笔记为Org：",
-    "Successfully converted notes to org: ",
+    "成功转换笔记为Org",
+    "Successfully converted notes to org",
   ],
   // warn_toc_enabled: [
   //   "⚠️仍处于获取目录模式",
