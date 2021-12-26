@@ -19,12 +19,16 @@ export const convert_to_org = (body: ReturnBody_Toc): string => {
       noteTitle,
       childNotes,
       excerptText,
-      // notesText: AllText,
+      notesText: otherMergedText,
       // docMd5,
       startPage,
       endPage,
     } = toc;
     excerptText = excerptText === undefined ? "" : excerptText;
+    if (otherMergedText) {
+      excerptText = excerptText + "\n\n" + otherMergedText;
+    }
+
     let rendered;
     if (startPage === undefined || noteTitle === undefined) {
       rendered = ""; // Skip root note
