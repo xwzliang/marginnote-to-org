@@ -23,7 +23,7 @@ const bindEvt = bindEventHandlers([
 const inst: InstMembers = {
   ...bindEvt.handlers,
   sceneWillConnect: () => {
-    self.tocMode = false;
+    self.tocMode = true;
     self.recorder = new PopupRecorder();
   },
   notebookWillOpen: (notebookid) => {
@@ -31,7 +31,7 @@ const inst: InstMembers = {
     self[addonOnName] = NSUserDefaults.standardUserDefaults().objectForKey(
       `marginnote_${pluginName}`,
     );
-    if (self[addonOnName] && self.tocMode) showHUD(getText("warn_toc_enabled"));
+    // if (self[addonOnName] && self.tocMode) showHUD(getText("warn_toc_enabled"));
   },
   notebookWillClose: (notebookid) => {
     bindEvt.remove();
