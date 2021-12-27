@@ -1,7 +1,7 @@
 {
-  "name": "@aidenlx/obsidian-bridge",
-  "version": "3.0.0",
-  "description": "MarginNote 3 --> Obsidian",
+  "name": "@xwzliang/marginnote-to-org",
+  "version": "0.0.1",
+  "description": "MarginNote 3 --> Emacs Org format",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
