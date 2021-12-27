@@ -42,7 +42,7 @@ export const convert_to_org = (body: ReturnBody_Toc): string => {
       rendered = ""; // Skip root note
     } else {
       rendered =
-        "*".repeat(depth) +
+        "*".repeat(depth + 1) +
         ` ${noteTitle}
 :PROPERTIES:
 :ID:       ${noteId}
