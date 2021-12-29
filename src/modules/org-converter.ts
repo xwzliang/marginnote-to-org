@@ -10,11 +10,19 @@ import {
   Selection,
   Toc,
 } from "../return";
+import {
+  excerptPic_video,
+  linkComment,
+  MbBookNote,
+} from "@alx-plugins/marginnote";
 
 const orgTimeFormatForMomentjs = "YYYY-MM-DD ddd HH:mm";
 
 export const convert_to_org = (body: ReturnBody_Toc): string => {
   const { data: toc } = body;
+  const noteBook = Database.sharedInstance().getDocumentById(toc.docMd5 || "");
+  const fileName = noteBook?.pathFile || "";
+  let isVideoNotebook = false;
   // try {
   const iterate = (toc: Toc, depth = 0): string => {
     let {
@@ -34,11 +42,29 @@ export const convert_to_org = (body: ReturnBody_Toc): string => {
       excerptText = excerptText + "\n\n" + otherMergedText;
     }
 
+    const note = Database.sharedInstance().getNoteById(noteId);
+    const videoId = (note?.excerptPic as excerptPic_video)?.video;
+
     let createDateOrg = moment(createDate).format(orgTimeFormatForMomentjs);
     let modifiedDateOrg = moment(modifiedDate).format(orgTimeFormatForMomentjs);
 
     let rendered;
-    if (startPage === undefined || noteTitle === undefined) {
+    if (videoId) {
+      isVideoNotebook = true;
+      rendered =
+        "*".repeat(depth + 2) +
+        ` ${noteTitle}
+:PROPERTIES:
+:ID:       ${noteId}
+:CREATED: [${createDateOrg}]
+:MODIFIED: [${modifiedDateOrg}]
+:MPV_POSITION_START: ${videoPosToTimestamp(note?.startPos)}
+:MPV_POSITION_END: ${videoPosToTimestamp(note?.endPos)}
+:MARGINNOTE_LINK: [[marginnote3app://note/${noteId}][link]]
+:END:
+${excerptText}
+`;
+    } else if (startPage === undefined || noteTitle === undefined) {
       rendered = ""; // Skip root note
     } else {
       rendered =
@@ -61,6 +87,38 @@ ${excerptText}
     lines.unshift(rendered);
     return lines.join("\n");
   };
-  return iterate(toc);
+  const orgContent = iterate(toc);
+  return isVideoNotebook
+    ? `** ${toc.noteTitle}
+:PROPERTIES:
+:MPV_VIDEO_FILENAME: ${fileName}
+:END:
+
+
+` + orgContent
+    : orgContent;
   // } catch (error) {}
+};
+
+const videoPosToTimestamp = (pos: string | undefined): string | undefined => {
+  if (!pos || typeof pos !== "string") return undefined;
+  const [mark, totalStr, propStr, ...others] = pos.split("|"),
+    total = +totalStr,
+    prop = +propStr;
+  if (
+    mark === "MN3VIDEO" &&
+    others.length === 0 &&
+    Number.isFinite(total) &&
+    Number.isFinite(prop) &&
+    total > 0 &&
+    prop >= 0 &&
+    prop <= 1
+  ) {
+    const seconds = total * prop;
+    const timestamp = new Date(seconds * 1000).toISOString().substr(11, 8);
+    return timestamp;
+  } else {
+    console.error("invalid MNVIDEO time: ", pos);
+    return undefined;
+  }
 };
