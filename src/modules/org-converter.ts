@@ -38,8 +38,10 @@ export const convert_to_org = (body: ReturnBody_Toc): string => {
       modifiedDate,
     } = toc;
     excerptText = excerptText === undefined ? "" : excerptText;
+    let isMerged = false;
     if (otherMergedText) {
       excerptText = excerptText + "\n\n" + otherMergedText;
+      isMerged = true;
     }
 
     const note = Database.sharedInstance().getNoteById(noteId);
@@ -77,6 +79,7 @@ ${excerptText}
 :NOTER_PAGE: ${startPage}
 :NOTER_PAGE_END: ${endPage}
 :MARGINNOTE_LINK: [[marginnote3app://note/${noteId}][link]]
+:IS_MERGED: ${isMerged}
 :END:
 ${excerptText}
 `;
@@ -91,6 +94,7 @@ ${excerptText}
 :NOTER_PAGE: ${startPage}
 :NOTER_PAGE_END: ${endPage}
 :MARGINNOTE_LINK: [[marginnote3app://note/${noteId}][link]]
+:IS_MERGED: ${isMerged}
 :END:
 ${excerptText}
 `;
