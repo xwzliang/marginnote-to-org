@@ -78,6 +78,7 @@ ${excerptText}
 :MODIFIED: [${modifiedDateOrg}]
 :NOTER_PAGE: ${startPage}
 :NOTER_PAGE_END: ${endPage}
+:HIGHLIGHT_COLOR_INDEX: ${note?.colorIndex}
 :MARGINNOTE_LINK: [[marginnote3app://note/${noteId}][link]]
 :IS_MERGED: ${isMerged}
 :END:
@@ -93,6 +94,7 @@ ${excerptText}
 :MODIFIED: [${modifiedDateOrg}]
 :NOTER_PAGE: ${startPage}
 :NOTER_PAGE_END: ${endPage}
+:HIGHLIGHT_COLOR_INDEX: ${note?.colorIndex}
 :MARGINNOTE_LINK: [[marginnote3app://note/${noteId}][link]]
 :IS_MERGED: ${isMerged}
 :END:
