@@ -64,8 +64,22 @@ export const convert_to_org = (body: ReturnBody_Toc): string => {
 :END:
 ${excerptText}
 `;
-    } else if (startPage === undefined || noteTitle === undefined) {
+    } else if (note?.parentNote === undefined) {
       rendered = ""; // Skip root note
+    } else if (noteTitle === undefined) {
+      // Don't include noteId if noteTitle is undefined
+      rendered =
+        "*".repeat(depth + 1) +
+        ` undefined
+:PROPERTIES:
+:CREATED: [${createDateOrg}]
+:MODIFIED: [${modifiedDateOrg}]
+:NOTER_PAGE: ${startPage}
+:NOTER_PAGE_END: ${endPage}
+:MARGINNOTE_LINK: [[marginnote3app://note/${noteId}][link]]
+:END:
+${excerptText}
+`;
     } else {
       rendered =
         "*".repeat(depth + 1) +
