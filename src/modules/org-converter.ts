@@ -21,7 +21,8 @@ const orgTimeFormatForMomentjs = "YYYY-MM-DD ddd HH:mm";
 export const convert_to_org = (body: ReturnBody_Toc): string => {
   const { data: toc } = body;
   const noteBook = Database.sharedInstance().getDocumentById(toc.docMd5 || "");
-  const fileName = noteBook?.pathFile || "";
+  const filePath = noteBook?.pathFile || "";
+  const fileName = filePath.split("/").pop();
   let isVideoNotebook = false;
   // try {
   const iterate = (toc: Toc, depth = 0): string => {
