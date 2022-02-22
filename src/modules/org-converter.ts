@@ -62,7 +62,7 @@ export const convert_to_org = (body: ReturnBody_Toc): string => {
 :MODIFIED: [${modifiedDateOrg}]
 :MPV_POSITION_START: ${videoPosToTimestamp(note?.startPos)}
 :MPV_POSITION_END: ${videoPosToTimestamp(note?.endPos)}
-:MARGINNOTE_LINK: [[marginnote3app://note/${noteId}][link]]
+:MARGINNOTE_LINK: marginnote3app://note/${noteId}
 :END:
 ${excerptText}
 `;
@@ -79,7 +79,7 @@ ${excerptText}
 :NOTER_PAGE: ${startPage}
 :NOTER_PAGE_END: ${endPage}
 :HIGHLIGHT_COLOR_INDEX: ${note?.colorIndex}
-:MARGINNOTE_LINK: [[marginnote3app://note/${noteId}][link]]
+:MARGINNOTE_LINK: marginnote3app://note/${noteId}
 :IS_MERGED: ${isMerged}
 :END:
 ${excerptText}
