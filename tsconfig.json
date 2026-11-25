@@ -11,6 +11,8 @@
     "resolveJsonModule": true,
     "importHelpers": true,
     "strict": true,
+    "types": ["node"],
+    "skipLibCheck": true,
     "lib": ["ES2020"]
   },
   "include": ["src/**/*.ts"]

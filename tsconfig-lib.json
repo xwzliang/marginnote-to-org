@@ -11,10 +11,11 @@
     "resolveJsonModule": true,
     "importHelpers": true,
     "strict": true,
+    "types": ["node"],
+    "skipLibCheck": true,
     "declaration": true,
     "lib": ["ES2020"],
-    "outDir": "lib",
-    "plugins": [{ "transform": "@zerollup/ts-transform-paths" }]
+    "outDir": "lib"
   },
   "include": ["src/**/*.ts"]
 }
